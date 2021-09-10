@@ -8,13 +8,7 @@ from werkzeug.wrappers import Request, Response
 STORAGE_PATH = '/tmp/rfind-server.store'
 
 
-def store_command(command: str) -> None:
-    with open(STORAGE_PATH, 'a+') as f:
-        f.write(command)
-        f.write("\n")
-
-
-def retrieve_all() -> List:
+def retrieve_all() -> List[str]:
     try:
         with open(STORAGE_PATH, 'r') as f:
             lines = [s.strip() for s in f.readlines()]
@@ -22,6 +16,16 @@ def retrieve_all() -> List:
         return lines
     except Exception:
         return []
+
+
+def store_command(command: str) -> str:
+    lines: Line[str] = retrieve_all()
+    if command in lines:
+        return f'command "{command}" is already registered'
+
+    with open(STORAGE_PATH, 'a+') as f:
+        f.write(command + "\n")
+        return f'command "{command}" is registered'
 
 
 def flush() -> None:
@@ -38,9 +42,8 @@ def application(request):
     req = request.get_json()
     res = ''
 
-    if req['instruction'] == 'register':
-        store_command(req['body'])
-        res = 'A command was registered'
+    if req['instruction'] == 'add':
+        res = store_command(req['body'])
     
     if req['instruction'] == 'get_all':
         res = json.dumps(retrieve_all())
