@@ -25,3 +25,14 @@ if [ $? != 0 ]; then
     echo 'pytest failed'
     exit 1
 fi
+
+echo '###### black ######'
+poetry run black app/
+
+if [ $? != 0 ]; then
+    echo 'black failed'
+    exit 1
+else
+    echo 'black passed'
+fi
+

@@ -10,8 +10,8 @@ class AddBody(BaseModel):
     command: str
 
 
-@router.post('/add')
+@router.post("/add")
 async def add(add: AddBody):
     msg = store_command(add.command)
 
-    return {'result': msg}
+    return {"result": msg}

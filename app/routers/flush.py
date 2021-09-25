@@ -6,7 +6,7 @@ from app.libraries.storage import remove
 router = APIRouter()
 
 
-@router.post('/flush')
+@router.post("/flush")
 async def flush():
     remove()
-    return {'result': 'storage file was removed'}
+    return {"result": "storage file was removed"}
