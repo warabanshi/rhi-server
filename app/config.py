@@ -1,1 +1,1 @@
-STORAGE_PATH = '/tmp/rfind-server.store'
+STORAGE_PATH = '/tmp/rhi-server.store'

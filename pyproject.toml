@@ -1,12 +1,11 @@
 [tool.poetry]
-name = "rfind-server"
+name = "rhi-server"
 version = "0.1.0"
 description = ""
 authors = ["warabanshi <warabanshi@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-Werkzeug = "^2.0.1"
 fastapi = "^0.68.1"
 uvicorn = "^0.15.0"
 
