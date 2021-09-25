@@ -1,5 +1,8 @@
 from fastapi import APIRouter
 
+from app.libraries.storage import retrieve_all
+
+
 router = APIRouter(
     prefix='/get',
     tags=['get'],
@@ -9,8 +12,10 @@ router = APIRouter(
 
 @router.get('/')
 async def get_all():
-    return {'result': 'get_all() called'}
+    return {'result': retrieve_all()}
+
 
 @router.get('/{row_num}')
-async def get_all(row_num: int):
-    return {'result': f'get() called. row_num={row_num}'}
+async def get(row_num: int):
+    lines = retrieve_all()
+    return {'result': f'{lines[row_num-1]}'}
