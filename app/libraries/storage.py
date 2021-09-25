@@ -15,7 +15,7 @@ def retrieve_all() -> List[str]:
         return []
 
 
-def store_command(command: str) -> str:
+def store_command(command: str, message: str  = '') -> str:
     lines: List[str] = retrieve_all()
     if command in lines:
         return f'command "{command}" is already registered'
