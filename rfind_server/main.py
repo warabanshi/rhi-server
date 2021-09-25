@@ -44,7 +44,7 @@ def application(request):
 
     if req['instruction'] == 'add':
         res = store_command(req['body'])
-    
+
     if req['instruction'] == 'get_all':
         res = json.dumps(retrieve_all())
 

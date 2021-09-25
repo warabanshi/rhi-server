@@ -8,6 +8,6 @@ services:
     container_name: fastapi-python3.9.7
     restart: always
     ports:
-      - 8080:80
+      - 80:80
     volumes:
-      - "../:/srv"
+      - "./:/srv"

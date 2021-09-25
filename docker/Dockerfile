@@ -15,8 +15,11 @@ RUN curl -sL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/t
 ENV DOCKERIZE_VERSION v0.6.1
 RUN curl -sL https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz  | tar -C /usr/local/bin -xz
 
+COPY pyproject.toml poetry.lock ${APPDIR}/
+RUN poetry config virtualenvs.create false && \
+    poetry install -n
+
 COPY ./ ${APPDIR}/
-RUN poetry install -n
 
 ENTRYPOINT ["tini", "--"]
 CMD ["dockerize", "./run.sh"]
