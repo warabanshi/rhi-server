@@ -4,8 +4,8 @@ ENV APPDIR /srv
 WORKDIR ${APPDIR}
 
 RUN apk update
-RUN apk add python3 python3-dev py3-pip sqlite gcc musl-dev libffi-dev openssl-dev bash rust cargo
-RUN pip3 install -U pip poetry
+RUN apk add python3 python3-dev py3-pip sqlite gcc musl-dev libffi-dev openssl-dev bash rust cargo curl
+RUN pip3 install -U pip --ignore-installed distlib poetry
 
 ENV TINI_VERSION v0.19.0
 ENV TINI_PATH /usr/bin/tini
