@@ -1,6 +1,8 @@
 FROM python:3.9.7
 
 ENV APPDIR /srv
+ENV STORE_DIR /storage
+
 WORKDIR ${APPDIR}
 
 RUN apt update

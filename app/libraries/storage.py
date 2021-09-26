@@ -2,7 +2,10 @@ import os
 
 from typing import List
 
-from app.config import STORAGE_PATH
+from app.config import STORAGE_DIR, STORAGE_FILE
+
+
+STORAGE_PATH = "/".join([STORAGE_DIR, STORAGE_FILE])
 
 
 def retrieve_all() -> List[str]:
@@ -19,6 +22,9 @@ def store_command(command: str, message: str = "") -> str:
     lines: List[str] = retrieve_all()
     if command in lines:
         return f'command "{command}" is already registered'
+
+    if os.path.exists(STORAGE_DIR) == False:
+        os.makedirs(STORAGE_DIR)
 
     with open(STORAGE_PATH, "a+") as f:
         f.write(command + "\n")
