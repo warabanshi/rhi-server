@@ -1,0 +1,20 @@
+FROM arm32v7/python:3.9.7-slim-buster
+
+ENV APPDIR /srv
+ENV STORE_DIR /storage
+ENV PATH "/root/.cargo/bin:$PATH"
+
+WORKDIR ${APPDIR}
+
+RUN apt update
+RUN apt install -y curl gcc musl-dev libffi-dev libssl-dev
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN pip3 install -U pip poetry
+
+COPY pyproject.toml poetry.lock ${APPDIR}/
+RUN poetry config virtualenvs.create false && \
+    poetry install -n
+
+COPY ./ ${APPDIR}/
+
+CMD ["./run.sh"]
