@@ -2,6 +2,8 @@ from fastapi import APIRouter
 
 from app.libraries.storage import retrieve_all
 
+USER = "warabanshi"  # temporary dummy user
+
 
 router = APIRouter(
     prefix="/get",
@@ -12,7 +14,7 @@ router = APIRouter(
 
 @router.get("/")
 async def get_all():
-    return {"result": retrieve_all()}
+    return {"result": retrieve_all(USER)}  # fixed user name is given temporary
 
 
 @router.get("/{row_num}")
