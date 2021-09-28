@@ -1,38 +1,57 @@
 #!/bin/bash
 
-echo '###### mypy ######'
-poetry run mypy app/
+INST=$1
 
-if [ $? != 0 ]; then
-    echo 'mypy failed'
-    exit 1
-fi
+mypy() {
+    echo '###### mypy ######'
+    poetry run mypy app/
 
-echo '###### flake8 ######'
-poetry run flake8 app/
+    if [ $? != 0 ]; then
+        echo 'mypy failed'
+        exit 1
+    fi
+}
 
-if [ $? != 0 ]; then
-    echo 'flake8 failed'
-    exit 1
-else
-    echo 'flake8 passed'
-fi
+black() {
+    echo '###### black #####'
+    poetry run black app/
+}
 
-echo '###### pytest ######'
-poetry run pytest
+flake8() {
+    echo '###### flake8 ######'
+    poetry run flake8 app/
 
-if [ $? != 0 ]; then
-    echo 'pytest failed'
-    exit 1
-fi
+    if [ $? != 0 ]; then
+        echo 'flake8 failed'
+        exit 1
+    else
+        echo 'flake8 passed'
+    fi
+}
 
-echo '###### black ######'
-poetry run black app/
+pytest() {
+    echo '###### pytest ######'
+    poetry run pytest -s
 
-if [ $? != 0 ]; then
-    echo 'black failed'
-    exit 1
-else
-    echo 'black passed'
-fi
+    if [ $? != 0 ]; then
+        echo 'pytest failed'
+        exit 1
+    fi
+}
 
+case $INST in
+    "mypy")
+        mypy;;
+    "black")
+        black;;
+
+    "flake8")
+        flake8;;
+    "pytest")
+        pytest;;
+    *)
+        mypy
+        black
+        flake8
+        pytest
+esac
