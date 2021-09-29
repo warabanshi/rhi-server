@@ -19,5 +19,5 @@ async def get_all():
 
 @router.get("/{row_num}")
 async def get(row_num: int):
-    lines = retrieve_all()
+    lines = retrieve_all(USER)
     return {"result": f"{lines[row_num-1]}"}
