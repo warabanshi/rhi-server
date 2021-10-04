@@ -59,5 +59,13 @@ def store_command(command: str, message: str = "") -> str:
     return f'command "{command}" is registered'
 
 
-def remove():
+def remove() -> None:
     os.remove(make_storage_path(USER))  # fixed user name is given temporary
+
+
+def update(username: str, update_target: List[Dict[str, Any]]) -> None:
+    if not os.path.exists(STORAGE_DIR):
+        os.makedirs(STORAGE_DIR)
+
+    with open(make_storage_path(username), "w") as f:
+        json.dump(update_target, f)

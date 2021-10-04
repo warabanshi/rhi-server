@@ -8,6 +8,7 @@ authors = ["warabanshi <warabanshi@gmail.com>"]
 python = "^3.9"
 fastapi = "^0.68.1"
 uvicorn = "^0.15.0"
+requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
