@@ -15,12 +15,14 @@ router = APIRouter(
 
 @router.delete("/{command_nums_csv}")
 async def delete(command_nums_csv: str):
-    command_nums: List[int] = [int(num)-1 for num in command_nums_csv.split(',')]
+    def not_num_range(x: int):
+        return not 0 <= x < len(original_data)
+
+    command_nums: List[int] = [int(num) - 1 for num in command_nums_csv.split(",")]
     original_data: List[Dict[str, Any]] = retrieve_all(USER)
 
-    not_num_range = lambda x: not 0 <= x < len(original_data)
     if any([not_num_range(n) for n in command_nums]):
-        return {'result': 'desired command numbers includes invalid one'}
+        return {"result": "desired command numbers includes invalid one"}
 
     target_data = [v for k, v in enumerate(original_data) if k not in command_nums]
     update(USER, target_data)

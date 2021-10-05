@@ -1,5 +1,3 @@
-import json
-
 from fastapi import APIRouter
 
 from app.libraries.storage import retrieve_all
@@ -25,3 +23,8 @@ async def get(row_num: int):
     lines = retrieve_all(USER)  # fixed user name is given temporary
     r = lines[row_num - 1]
     return {"result": r}
+
+
+@router.get("/test/")
+async def get_test():
+    return {"result": "testdayo"}
