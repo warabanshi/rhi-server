@@ -8,7 +8,7 @@ from app.main import app
 
 @pytest.mark.asyncio
 @patch('app.routers.get.retrieve_all')
-async def test_get_test(mock_retrieve_all):
+async def test_get(mock_retrieve_all):
     mock_retrieve_all.return_value = [
         {"command": "test command 1", "message": ""},
         {"command": "test command 2", "message": ""},
