@@ -35,10 +35,10 @@ def retrieve_all(username: str) -> List[Dict[str, Any]]:
         return []
 
 
-def store_command(command: str, message: str = "", tags: List[str] = []) -> str:
-    userdata: List[Dict[str, Any]] = retrieve_all(
-        USER
-    )  # fixed user name is given temporary
+def store_command(
+    username: str, command: str, message: str = "", tags: List[str] = []
+) -> str:
+    userdata: List[Dict[str, Any]] = retrieve_all(username)
 
     if command in [row["command"] for row in userdata]:
         return f'command "{command}" is already registered'
@@ -46,7 +46,7 @@ def store_command(command: str, message: str = "", tags: List[str] = []) -> str:
     if not os.path.exists(STORAGE_DIR):
         os.makedirs(STORAGE_DIR)
 
-    with open(make_storage_path(USER), "w") as f:  # fixed user name is given temporary
+    with open(make_storage_path(username), "w") as f:
         userdata.append(
             {
                 "command": command,
@@ -60,8 +60,9 @@ def store_command(command: str, message: str = "", tags: List[str] = []) -> str:
     return f'command "{command}" is registered'
 
 
-def remove() -> None:
-    os.remove(make_storage_path(USER))  # fixed user name is given temporary
+def remove(username: str) -> None:
+    if os.path.exists(make_storage_path(username)):
+        os.remove(make_storage_path(username))
 
 
 def update(username: str, update_target: List[Dict[str, Any]]) -> None:

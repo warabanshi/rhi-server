@@ -1,5 +1,8 @@
-from fastapi import APIRouter
+from typing import Dict
 
+from fastapi import APIRouter, Depends
+
+from app.dependencies import headers
 from app.libraries.storage import retrieve_all
 
 USER = "warabanshi"  # temporary dummy user
@@ -13,18 +16,13 @@ router = APIRouter(
 
 
 @router.get("/")
-async def get_all():
-    r = retrieve_all(USER)  # fixed user name is given temporary
+async def get_all(headers: Dict = Depends(headers)):
+    r = retrieve_all(headers["x_rhi_username"])
     return {"result": r}
 
 
 @router.get("/{row_num}")
-async def get(row_num: int):
-    lines = retrieve_all(USER)  # fixed user name is given temporary
+async def get(row_num: int, headers: Dict = Depends(headers)):
+    lines = retrieve_all(headers["x_rhi_username"])
     r = lines[row_num - 1]
     return {"result": r}
-
-
-@router.get("/test/")
-async def get_test():
-    return {"result": "testdayo"}
