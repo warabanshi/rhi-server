@@ -14,8 +14,8 @@ USER = "warabanshi"  # temporary dummy user
 /STORAGE_DIR/(username).store
 
 [
-    {"command": "xxxxxxx", "message": "this is sample message 1"},
-    {"command": "yyyyyyy", "message": "this is sample message 2"},
+    {"command": "xxxxxxx", "message": "this is sample message 1", tags:['aaa', 'bbb']},
+    {"command": "yyyyyyy", "message": "this is sample message 2", tags:[]},
     ...
 ]
 """
@@ -35,7 +35,7 @@ def retrieve_all(username: str) -> List[Dict[str, Any]]:
         return []
 
 
-def store_command(command: str, message: str = "") -> str:
+def store_command(command: str, message: str = "", tags: List[str] = []) -> str:
     userdata: List[Dict[str, Any]] = retrieve_all(
         USER
     )  # fixed user name is given temporary
@@ -51,6 +51,7 @@ def store_command(command: str, message: str = "") -> str:
             {
                 "command": command,
                 "message": message,
+                "tags": tags,
             }
         )
 
