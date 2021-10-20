@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "rhi-server"
-version = "0.1.0"
+version = "0.0.1"
 description = ""
 authors = ["warabanshi <warabanshi@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 fastapi = "^0.68.1"
 uvicorn = "^0.15.0"
 requests = "^2.26.0"

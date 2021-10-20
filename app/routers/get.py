@@ -5,8 +5,6 @@ from fastapi import APIRouter, Depends
 from app.dependencies import headers
 from app.libraries.storage import retrieve_all
 
-USER = "warabanshi"  # temporary dummy user
-
 
 router = APIRouter(
     prefix="/get",

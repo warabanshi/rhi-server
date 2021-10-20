@@ -6,8 +6,6 @@ from typing import Any, Dict, List
 from app.config import STORAGE_DIR, STORAGE_FILE_SUFFIX
 
 
-USER = "warabanshi"  # temporary dummy user
-
 """
 << stored data format >>
 
